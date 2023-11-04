@@ -46,3 +46,10 @@ def test_colinear_points_with_closer_point_first():
 
     answer = [points[0], points[2], points[3]]
     assert all(p in hull for p in answer)
+
+def test_only_colinear_points():
+    points = [Point(1,2), Point(2, 4), Point(3,6)]
+    hull = QuickHull(points)
+
+    answer = [points[0], points[2]]
+    assert all(p in hull for p in answer)
