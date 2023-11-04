@@ -1,9 +1,9 @@
 from point import Point
 
-def JarvisMarch(points: set(Point)) -> set(Point):
-    leftMost: Point = min(p.x for p in points)
+def JarvisMarch(points: list) -> list:
+    leftMost: Point = min(points, key=lambda p: p.x)
     hullCandidate: Point = None
-    hull = set(leftMost)
+    hull = [leftMost]
 
     while (hull[0] != hullCandidate):
         hullCandidate = points[0]
