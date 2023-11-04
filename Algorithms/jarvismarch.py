@@ -1,6 +1,9 @@
 from point import Point
 
 def JarvisMarch(points: list) -> list:
+    if (points is None or len(points) < 3):
+        raise ValueError("points parameter must have 3 or more points") 
+
     leftMost: Point = min(points, key=lambda p: p.x)
     hullCandidate: Point = None
     hull = [leftMost]
