@@ -4,11 +4,12 @@ def JarvisMarch(points: list) -> list:
     if (points is None or len(points) < 3):
         raise ValueError("points parameter must have 3 or more points") 
 
-    leftMost: Point = min(points, key=lambda p: p.x)
+    firstPoint =  min(points, key=lambda p: p.x)
+    leftMost: Point = firstPoint
     hullCandidate: Point = None
-    hull = [leftMost]
+    hull = set([leftMost])
 
-    while (hull[0] != hullCandidate):
+    while (firstPoint != hullCandidate):
         hullCandidate = points[0]
         for i in range(0, len(points)):
             newPotentialHullCandidate: Point = points[i]
@@ -16,13 +17,13 @@ def JarvisMarch(points: list) -> list:
             if (polarAngle > 0 or hullCandidate == leftMost):
                 hullCandidate = newPotentialHullCandidate
             elif (polarAngle == 0):
-                isInHull: bool = any(p == newPotentialHullCandidate for p in hull)
+                isInHull: bool = newPotentialHullCandidate in hull
                 if (newPotentialHullCandidate.y > hullCandidate.y and not isInHull):
                     hullCandidate = newPotentialHullCandidate
             
         leftMost = hullCandidate
-        if (hull[0] != leftMost):
-            hull.append(leftMost)
+        if (firstPoint != leftMost):
+            hull.add(leftMost)
 
     return hull
 
