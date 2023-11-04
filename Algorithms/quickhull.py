@@ -48,8 +48,23 @@ def FindHullPoints(remainingPoints: list, left: Point, right: Point) -> list:
         if (distance > furthestPoint[0]):
             furthestPoint = (distance, remainingPoints[i])
 
+    if (furthestPoint[1] is None):
+        return
+
     leftPoints: list = []
     rightPoints: list = []
+
+    for i in range(0, len(remainingPoints)):
+        polarAngle: int = GetPolarAngleUsingCrossProduct(left, remainingPoints[i], right)
+        if (remainingPoints[i] == left or remainingPoints[i] == right or remainingPoints[i] == furthestPoint[1]):
+            continue
+
+        # If polarAngle > 0, then this is a right turning segment and the middle point must be above the line.
+        # If polarAngle < 0, then it is an implied left turn
+        if polarAngle > 0:
+            leftPoints.append(remainingPoints[i])
+        elif polarAngle < 0:
+            rightPoints.append(remainingPoints[i])
 
     leftHull = FindHullPoints(leftPoints, left, furthestPoint[1])
     rightHull = FindHullPoints(rightPoints, furthestPoint[1], right)

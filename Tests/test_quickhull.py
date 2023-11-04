@@ -19,3 +19,10 @@ def test_all_points_are_hull_points():
 
     answer = [points[0], points[1], points[2]]
     assert all(p in hull for p in answer)
+
+def test_some_points_are_hull_points():
+    points = [Point(1, 2), Point(3, 3), Point(5, 6), Point(6, 1)]
+    hull = QuickHull(points)
+
+    answer = [points[0], points[2], points[3]]
+    assert all(p in hull for p in answer)
