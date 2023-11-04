@@ -31,4 +31,4 @@ def GetPolarAngleUsingCrossProduct(p1: Point, p2: Point, p3: Point) -> int:
     p3p1: Point = Point(p3.x - p1.x, p3.y - p1.y)
     p2p1: Point = Point(p2.x - p1.x, p2.y - p1.y)
 
-    return (p3p1.x & p2p1.y) - (p3p1.y * p2p1.x)
+    return (p3p1.x * p2p1.y) - (p3p1.y * p2p1.x)
