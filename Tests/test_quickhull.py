@@ -17,5 +17,5 @@ def test_all_points_are_hull_points():
     points = [Point(1, 2), Point(3, 6), Point(4, 1)]
     hull = QuickHull(points)
 
-    assert len(points), 3
-    assert points == hull
+    answer = [points[0], points[1], points[2]]
+    assert all(p in hull for p in answer)
