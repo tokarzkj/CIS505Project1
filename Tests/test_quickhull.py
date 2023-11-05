@@ -60,3 +60,10 @@ def test_negative_and_positive_points_all_are_hull_points():
     hull = QuickHull(points)
 
     assert all(p in hull for p in points)
+
+# Confirm that if we encounter data sets with the same x value, but different y values works
+def test_multiple_x_values_with_different_y_values():
+    points = [Point(1,2), Point(1, -4), Point(-3,-6)]
+    hull = QuickHull(points)
+
+    assert all(p in hull for p in points)

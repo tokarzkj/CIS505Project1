@@ -1,5 +1,4 @@
 from point import Point
-import math
 
 def QuickHull(points: list) -> list:
     if (points is None or len(points) < 3):
@@ -55,15 +54,17 @@ def FindHullPoints(remainingPoints: list, left: Point, right: Point) -> list:
     rightPoints: list = []
 
     for i in range(0, len(remainingPoints)):
-        polarAngle: int = GetPolarAngleUsingCrossProduct(left, remainingPoints[i], right)
         if (remainingPoints[i] == left or remainingPoints[i] == right or remainingPoints[i] == furthestPoint[1]):
             continue
 
+        leftSidePolarAngle: int = GetPolarAngleUsingCrossProduct(left, remainingPoints[i], furthestPoint[1])
+        rightSidePolarAngle: int = GetPolarAngleUsingCrossProduct(right, remainingPoints[i], furthestPoint[1])
+
         # If polarAngle > 0, then this is a right turning segment and the middle point must be above the line.
         # If polarAngle < 0, then it is an implied left turn
-        if polarAngle > 0:
+        if leftSidePolarAngle > 0:
             leftPoints.append(remainingPoints[i])
-        elif polarAngle < 0:
+        elif rightSidePolarAngle < 0:
             rightPoints.append(remainingPoints[i])
 
     leftHull = FindHullPoints(leftPoints, left, furthestPoint[1])
@@ -84,7 +85,7 @@ def GetPolarAngleUsingCrossProduct(p1: Point, p2: Point, p3: Point) -> int:
     p3p1: Point = Point(p3.x - p1.x, p3.y - p1.y)
     p2p1: Point = Point(p2.x - p1.x, p2.y - p1.y)
 
-    return (p3p1.x & p2p1.y) - (p3p1.y * p2p1.x)
+    return (p3p1.x * p2p1.y) - (p3p1.y * p2p1.x)
 
 def GetDistance(lineSegment, point) -> float:
     return abs(
