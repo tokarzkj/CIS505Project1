@@ -52,3 +52,10 @@ def test_only_colinear_points():
 
     answer = [points[0], points[2]]
     assert all(p in hull for p in answer)
+
+# Confirm that the algorithm works when points are positive or negative
+def test_negative_and_positive_points_all_are_hull_points():
+    points = [Point(1,2), Point(2, -4), Point(-3,-6)]
+    hull = JarvisMarch(points)
+
+    assert all(p in hull for p in points)
