@@ -8,6 +8,7 @@ def JarvisMarch(points: list) -> list:
     leftMost: Point = firstPoint
     hullCandidate: Point = None
     hull = set([leftMost])
+    orderedHull = [leftMost]
 
     while (firstPoint != hullCandidate):
         hullCandidate = points[0]
@@ -24,8 +25,9 @@ def JarvisMarch(points: list) -> list:
         leftMost = hullCandidate
         if (firstPoint != leftMost):
             hull.add(leftMost)
+            orderedHull.append(leftMost)
 
-    return hull
+    return orderedHull
 
 def GetPolarAngleUsingCrossProduct(p1: Point, p2: Point, p3: Point) -> int:
     p3p1: Point = Point(p3.x - p1.x, p3.y - p1.y)

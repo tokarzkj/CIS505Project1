@@ -7,14 +7,13 @@ def QuickHull(points: list) -> list:
     points.sort(key= lambda p: p.x)
     leftMost: Point = points[0]
     rightMost: Point = points[-1]
-    hull = set([leftMost, rightMost])  
-
+ 
     leftPoints = []
     rightPoints = []
 
     for i in range(0, len(points)):
         polarAngle: int = GetPolarAngleUsingCrossProduct(leftMost, points[i], rightMost)
-        if (points[i] in hull):
+        if (points[i] == leftMost or points[i] == rightMost):
             continue
 
         # If polarAngle > 0, then this is a right turning segment and the middle point must be above the line.
@@ -27,11 +26,15 @@ def QuickHull(points: list) -> list:
     leftHull: list = FindHullPoints(leftPoints, leftMost, rightMost)
     rightHull: list = FindHullPoints(rightPoints, rightMost, leftMost)
 
+    hull = [leftMost] 
     if (leftHull is not None):
-        hull.update(leftHull)
+        hull.extend(leftHull)
+
+    hull.append(rightMost)
 
     if (rightHull is not None):
-        hull.update(rightHull)
+        hull.extend(rightHull)
+
 
     return hull
 
@@ -70,11 +73,13 @@ def FindHullPoints(remainingPoints: list, left: Point, right: Point) -> list:
     leftHull = FindHullPoints(leftPoints, left, furthestPoint[1])
     rightHull = FindHullPoints(rightPoints, furthestPoint[1], right)
 
-    result = [furthestPoint[1]]
+    result = []
 
     if (leftHull is not None):
         result.extend(leftHull)
     
+    result.append(furthestPoint[1])
+
     if (rightHull is not None):
         result.extend(rightHull)
 

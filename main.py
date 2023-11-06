@@ -21,12 +21,18 @@ if __name__ == '__main__':
     elif (alg.lower() == 'j'):
         hull = jarvismarch.JarvisMarch(points)
 
-    pointsNotInHull = list(set(points) - hull)
+    pointsNotInHull = [p for p in points if p not in hull]
     fig, ax = plt.subplots()
     ax.scatter(list(map(lambda p: p.x, pointsNotInHull)), 
                list(map(lambda p: p.y, pointsNotInHull)), label='Interior Points')
-    ax.scatter(list(map(lambda p: p.x, hull)), 
-               list(map(lambda p: p.y, hull)), label='Hull Points')
+    
+    xPoints = list(map(lambda p: p.x, hull))
+    xPoints.append(hull[0].x)
+    yPoints = list(map(lambda p: p.y, hull))
+    yPoints.append(hull[0].y)
+
+    ax.plot(xPoints, 
+            yPoints, label='Hull Points', linestyle='--', marker='o', color='r')
     
     ax.legend(bbox_to_anchor=(1, 1), bbox_transform=fig.transFigure)
     plt.show()
