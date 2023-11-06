@@ -43,7 +43,7 @@ def FindHullPoints(remainingPoints: list, left: Point, right: Point) -> list:
     furthestPoint = (0, None)
 
     for i in range(0, len(remainingPoints)):
-        distance: float = GetDistance(lineSegment, remainingPoints[i])
+        distance: float = abs(GetPolarAngleUsingCrossProduct(left, remainingPoints[i], right))
         if (distance > furthestPoint[0]):
             furthestPoint = (distance, remainingPoints[i])
 
@@ -82,12 +82,4 @@ def FindHullPoints(remainingPoints: list, left: Point, right: Point) -> list:
 
 
 def GetPolarAngleUsingCrossProduct(p1: Point, p2: Point, p3: Point) -> int:
-    p3p1: Point = Point(p3.x - p1.x, p3.y - p1.y)
-    p2p1: Point = Point(p2.x - p1.x, p2.y - p1.y)
-
-    return (p3p1.x * p2p1.y) - (p3p1.y * p2p1.x)
-
-def GetDistance(lineSegment, point) -> float:
-    return abs(
-        (lineSegment.x * point.y) - (lineSegment.y * point.x)
-    )
+    return (p3.y - p1.y)*(p2.x - p1.x) - (p2.y - p1.y)*(p3.x - p1.x)
