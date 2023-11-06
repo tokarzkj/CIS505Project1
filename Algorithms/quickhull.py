@@ -41,12 +41,11 @@ def QuickHull(points: list) -> list:
 def FindHullPoints(remainingPoints: list, left: Point, right: Point) -> list:
     if (len(remainingPoints) == 0):
         return
-    
-    lineSegment = Point(right.x - left.x, right.y - left.y)
+
     furthestPoint = (0, None)
 
     for i in range(0, len(remainingPoints)):
-        distance: float = abs(GetPolarAngleUsingCrossProduct(left, remainingPoints[i], right))
+        distance: float = GetPointsDistanceFromLine(left, remainingPoints[i], right)
         if (distance > furthestPoint[0]):
             furthestPoint = (distance, remainingPoints[i])
 
@@ -85,6 +84,16 @@ def FindHullPoints(remainingPoints: list, left: Point, right: Point) -> list:
 
     return result
 
-
 def GetPolarAngleUsingCrossProduct(p1: Point, p2: Point, p3: Point) -> int:
-    return (p3.y - p1.y)*(p2.x - p1.x) - (p2.y - p1.y)*(p3.x - p1.x)
+    p3p1: Point = Point(p3.x - p1.x, p3.y - p1.y)
+    p2p1: Point = Point(p2.x - p1.x, p2.y - p1.y)
+
+    return (p3p1.x * p2p1.y) - (p3p1.y * p2p1.x)
+
+# Using the following formula https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points.
+# However, because the line segment is the same for all the points we are checking we can ignore the denominator since
+# it will be the same, so the larger numerator is what we care about and we are working with whole numbers, so there is
+# no division of less than 1.
+def GetPointsDistanceFromLine(p1: Point, p2: Point, p3: Point) -> int:
+    """Calculate a relative distance of p2 from the line segment made by p1 and p3"""
+    return abs((p1.y - p2.y)*(p3.x - p1.x) - (p3.y - p1.y)*(p1.x - p2.x))
