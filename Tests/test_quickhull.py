@@ -67,3 +67,11 @@ def test_multiple_x_values_with_different_y_values():
     hull = QuickHull(points)
 
     assert all(p in hull for p in points)
+
+def test_with_points_in_all_quadrants():
+    points = [Point(-5, -5), Point(-31, 36), Point(-18, 37), Point(8, 1), Point(-16, -3), Point(-14, 24),
+              Point(-11, 6), Point(-5, 15), Point(26, 30), Point(11, -14), Point(23, -30)]
+    hull = QuickHull(copy(points))
+
+    answer = [points[1], points[2], points[8], points[10], points[4]]
+    assert all(p in hull for p in answer)
