@@ -6,7 +6,7 @@ import json
 rng = np.random.default_rng()
 
 pointCount = 50000
-points = rng.standard_normal(size= (pointCount, 2), dtype=np.float_)
+points = rng.poisson(size=(pointCount, 2))
 
-with open('./Data/{pointCount}_gaussian_points.json'.format(pointCount=pointCount), 'w') as f:
+with open("./Data/{pointCount}_poisson_points.json".format(pointCount=pointCount), 'w') as f:
     json.dump(points.tolist(), f, indent=4)

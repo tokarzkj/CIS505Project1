@@ -7,6 +7,13 @@ from point import Point
 
 runner = pyperf.Runner()
 
+with open('./Data/10_gaussian_points.json', 'r') as f:
+    data = json.load(f)
+
+points = list(map(lambda d: Point(d[0], d[1]) ,data))
+runner.bench_func('10 Gaussian points - Jarvis March', JarvisMarch, points)
+runner.bench_func('10 Gaussian points - Quickhull', QuickHull, points)
+
 with open('./Data/50_gaussian_points.json', 'r') as f:
     data = json.load(f)
 
@@ -41,3 +48,17 @@ with open('./Data/5000_gaussian_points.json', 'r') as f:
 points = list(map(lambda d: Point(d[0], d[1]) ,data ))
 runner.bench_func('5000 Gaussian points - Jarvis March', JarvisMarch, points)
 runner.bench_func('5000 Gaussian points - Quickhull', QuickHull, points)
+
+with open('./Data/10000_gaussian_points.json', 'r') as f:
+    data = json.load(f)
+
+points = list(map(lambda d: Point(d[0], d[1]) ,data))
+runner.bench_func('10000 Gaussian points - Jarvis March', JarvisMarch, points)
+runner.bench_func('10000 Gaussian points - Quickhull', QuickHull, points)
+
+with open('./Data/50000_gaussian_points.json', 'r') as f:
+    data = json.load(f)
+
+points = list(map(lambda d: Point(d[0], d[1]) ,data))
+runner.bench_func('50000 Gaussian points - Jarvis March', JarvisMarch, points)
+runner.bench_func('50000 Gaussian points - Quickhull', QuickHull, points)
