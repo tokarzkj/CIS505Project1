@@ -74,3 +74,12 @@ def test_with_points_in_all_quadrants():
 
     answer = [points[1], points[2], points[8], points[10], points[4]]
     assert all(p in hull for p in answer)
+
+def test_points_close_to_hull():
+    points = [Point(-2.415507919565558, -0.5242918153835444), Point(1.6550678142353963, 1.2095408862776673), 
+              Point(0.18672128724192494, 1.9090457502641769), Point(-1.1357405014212403, 0.39298901707602199),
+              Point(2.6719628088750174, -0.4666324100015172)]
+    
+    hull = JarvisMarch(points)
+    answer = [points[0], points[2], points[1], points[4]]
+    assert all(p in hull for p in answer)
