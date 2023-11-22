@@ -39,7 +39,7 @@ def QuickHull(points: list) -> list:
     return hull
 
 def FindHullPoints(remainingPoints: list, left: Point, right: Point) -> list:
-    if (len(remainingPoints) == 0):
+    if (remainingPoints is None or len(remainingPoints) == 0):
         return
 
     furthestPoint = (0, None)
@@ -48,9 +48,6 @@ def FindHullPoints(remainingPoints: list, left: Point, right: Point) -> list:
         distance: float = GetPointsDistanceFromLine(left, remainingPoints[i], right)
         if (distance > furthestPoint[0]):
             furthestPoint = (distance, remainingPoints[i])
-
-    if (furthestPoint[1] is None):
-        return
 
     leftPoints: list = []
     rightPoints: list = []
