@@ -29,24 +29,24 @@ def test_some_points_are_hull_points():
     answer = [points[0], points[2], points[3]]
     assert all(p in hull for p in answer)
 
-# Confirm that when there are colinear points and we encounter the furthest point first we keep that point for the convex hull.
-def test_colinear_points_with_further_point_first():
+# Confirm that when there are collinear points and we encounter the furthest point first we keep that point for the convex hull.
+def test_collinear_points_with_further_point_first():
     points = [Point(1,2), Point(3,6), Point(2, 4), Point(4,1)]
     hull = JarvisMarch(points)
 
     answer = [points[0], points[1], points[3]]
     assert all(p in hull for p in answer)
 
-# Confirm that when there are colinear points and we encounter the closer point first we switch to the further point for the convex hull.
-def test_colinear_points_with_closer_point_first():
+# Confirm that when there are collinear points and we encounter the closer point first we switch to the further point for the convex hull.
+def test_collinear_points_with_closer_point_first():
     points = [Point(1,2), Point(2, 4), Point(3,6), Point(4,1)]
     hull = JarvisMarch(points)
 
     answer = [points[0], points[2], points[3]]
     assert all(p in hull for p in answer)
 
-# Confirm that when there are only colinear points we take the extremes for the convex hull.
-def test_only_colinear_points():
+# Confirm that when there are only collinear points we take the extremes for the convex hull.
+def test_only_collinear_points():
     points = [Point(1,2), Point(2, 4), Point(3,6)]
     hull = JarvisMarch(points)
 
