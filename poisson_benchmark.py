@@ -7,6 +7,13 @@ from point import Point
 
 runner = pyperf.Runner()
 
+with open('./Data/10_poisson_points.json', 'r') as f:
+    data = json.load(f)
+
+points = list(map(lambda d: Point(d[0], d[1]) ,data))
+runner.bench_func('10 Poisson points - Jarvis March', JarvisMarch, points)
+runner.bench_func('10 Poisson points - Quickhull', QuickHull, points)
+
 with open('./Data/50_poisson_points.json', 'r') as f:
     data = json.load(f)
 
@@ -49,9 +56,9 @@ points = list(map(lambda d: Point(d[0], d[1]) ,data ))
 runner.bench_func('10000 Poisson points - Jarvis March', JarvisMarch, points)
 runner.bench_func('10000 Poisson points - Quickhull', QuickHull, points)
 
-#with open('./Data/50000_poisson_points.json', 'r') as f:
-#    data = json.load(f)
+with open('./Data/50000_poisson_points.json', 'r') as f:
+    data = json.load(f)
 
-#points = list(map(lambda d: Point(d[0], d[1]) ,data ))
+points = list(map(lambda d: Point(d[0], d[1]) ,data ))
 #runner.bench_func('50000 Poisson points - Jarvis March', JarvisMarch, points)
-#runner.bench_func('50000 Poisson points - Quickhull', QuickHull, points)
+runner.bench_func('50000 Poisson points - Quickhull', QuickHull, points)
